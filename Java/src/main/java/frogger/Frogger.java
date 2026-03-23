@@ -7,25 +7,19 @@ package frogger;
  */
 public class Frogger {
 
-    // Field for task 1.
+    // Task 1: Frogger holds a Road reference and its position.
     private final Road road;
     private int position;
-    
-    // Field for task 2. Anything to add/change?
-    private final Records records;
-    private String firstName, lastName, phoneNumber, zipCode, state, gender;
 
-    public Frogger(Road road, int position, Records records, String firstName, String lastName, String phoneNumber,
-    String zipCode, String state, String gender) {
+    // Task 2 Refactor: replaced 6 separate String fields with a single FroggerID.
+    private final FroggerID id;
+    private final Records records;
+
+    public Frogger(Road road, int position, Records records, FroggerID id) {
         this.road = road;
         this.position = position;
         this.records = records;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.zipCode = zipCode;
-        this.state = state;
-        this.gender = gender;
+        this.id = id;
     }
 
     /**
@@ -36,33 +30,22 @@ public class Frogger {
      */
     public boolean move(boolean forward) {
         int nextPosition = this.position + (forward ? 1 : -1);
-        if (!isValid(nextPosition) || isOccupied(nextPosition)) {
+        // Task 1 Refactor: Road now owns isValid/isOccupied — no raw array access here.
+        if (!road.isValid(nextPosition) || road.isOccupied(nextPosition)) {
             return false;
         }
         this.position = nextPosition;
         return true;
     }
 
-    // TODO: Do you notice any issues here?
-    public boolean isOccupied(int position) {
-        boolean[] occupied = this.road.getOccupied();
-        return occupied[position];
-    }
-    
-    public boolean isValid(int position) {
-        if (position < 0) return false;
-        boolean[] occupied = this.road.getOccupied();
-        return position < occupied.length;
-    }
-
     /**
      * Records Frogger to the list of records.
-     * 
+     *
      * @return true if record successful, else false.
      */
     public boolean recordMyself() {
-      boolean success = records.addRecord(firstName, lastName, phoneNumber, zipCode, state, gender);
-      return success;
+        // Task 2 Refactor: pass FroggerID instead of 6 individual String fields.
+        return records.addRecord(this.id);
     }
 
 }
