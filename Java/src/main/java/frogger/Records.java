@@ -15,21 +15,6 @@ public class Records {
         this.records = new ArrayList<>();
     }
 
-    /**
-     * Adds a frogger's record.
-     *
-     * @param firstName   first name of the frogger
-     * @param lastName    last name of the frogger
-     * @param phoneNumber phone number of the frogger
-     * @param zipCode     zip code of the frogger
-     * @param state       state of the frogger
-     * @param gender      gender of the frogger
-     * @return Return false if the record has existed. Else, return true.
-     */
-    /**
-     * Task 2 Refactor: Accepts a FroggerID instead of individual fields.
-     * Frogger only needs to pass itself as a FroggerID.
-     */
     public boolean addRecord(FroggerID id) {
         return addRecord(id.firstName(), id.lastName(), id.phoneNumber(),
                          id.zipCode(), id.state(), id.gender());

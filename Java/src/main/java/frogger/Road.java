@@ -12,8 +12,6 @@ public class Road {
         this.occupied = occupied;
     }
 
-    // Task 1 Refactor: Road manages its own logic.
-    // Frogger no longer needs to access the raw array.
     public boolean isOccupied(int position) {
         return this.occupied[position];
     }
